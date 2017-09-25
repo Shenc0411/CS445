@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>CS445 Computational Photography MP1</title>
+</head>
+<body>
+
+  <h2>CS445 Computational Photography MP1</h2>
+  <h3>1. Image Hybrid</h3>
+  <figure>
+    <h4>1.1 Successful Hybrid</h4>
+    <img src="success.jpg" alt="Hybrid of a panda and an owl" style="max-height: 250px;">
+    <img src="panda.jpg" alt="Panda" style="max-height: 250px;">
+    <img src="owl.jpg" alt="Owl" style="max-height: 250px;">
+    <img src="fft_input.jpg" alt="log fft magnitude for input images" style="max-height: 250px;">
+    <img src="fft_filtered.jpg" alt="log fft magnitude for filtered images" style="max-height: 250px;">
+    <img src="fft_hybrid.jpg" alt="log fft magnitude for input images" style="max-height: 250px;">
+    <img src="pyramids.jpg" alt="log fft magnitude for input images" style="max-height: 250px;">
+    <figcaption>Hybrid of a panda and an owl.<br> 
+      Low pass filter sigma: 10.5361.<br>
+      High pass filter sigma: 5.6818.<br>
+      More explanations in the comments in matlab codes.
+    </figcaption>
+  </figure>
+  <figure>
+    <h4>1.3 Not Successful Hybrid 2</h4>
+    <img src="failure.jpg" alt="Hybrid of Mr Trump and Mr Obama" style="width:280px;height:210px;">
+    <img src="trump.jpg" alt="Hybrid of Mr Trump and Mr Obama" style="max-height: 210px;">
+    <img src="obama.jpg" alt="Hybrid of Mr Trump and Mr Obama" style="max-height: 210px;">
+    <figcaption>Hybrid of Mr Trump and Mr Obama, which is not quite successful.<br>
+      Low pass filter sigma: 8.5625. <br>
+      High pass filter sigma: 8.5625. <br>
+      I believe the main reasons for this failure are:
+      <p style="text-indent: 20px">1. Both low pass and high pass filters' cutoff frequencies are too low.</p>
+      <p style="text-indent: 20px">2. The outlines of their faces differ greatly.</p>
+    </figcaption>
+  </figure>
+  <figure>
+    <h4>1.2 Not Successful Hybrid</h4>
+    <img src="failure_2.jpg" alt="Hybrid of Kobe Bryant and Michael Jordan" style="max-height: 250px;">
+    <img src="kobe-bryant.jpg" alt="Hybrid of Mr Trump and Mr Obama" style="max-height: 250px;">
+    <img src="michael-jordan.jpg" alt="Hybrid of Mr Trump and Mr Obama" style="max-height: 250px;">
+    <figcaption>Hybrid of Kobe Bryant and Michael Jordan, which is also not quite successful.<br>
+      Low pass filter sigma: 2.3555. <br>
+      High pass filter sigma: 2.3555. <br>
+      I believe the main reasons for this failure are:
+      <p style="text-indent: 20px">1. Low pass filter's cutoff frequency is too high, since we can see too much details from the low pass filtered image.</p>
+      <p style="text-indent: 20px">2. Their faces are too similar. A lot of features on their faces are overlapping so that it is hard to see difference.</p> 
+    </figcaption>
+  </figure>
+  <h3>2. Image Enhancement</h3>
+  <figure>
+    <h4>2.1 Contrast Enhancemnet</h4>
+    <img src="dark.jpg" alt="a dark image" style="max-height: 250px;">
+    <img src="contrast_enhanced.jpg" alt="a dark image" style="max-height: 250px;">
+    <figcaption>Contrast enhancement with gammar correction with parameter 0.5.</figcaption>
+  </figure>
+  <figure>
+    <h4>2.2 Color Enhancement</h4>
+    <img src="color.jpg" alt="a not that colorful image" style="max-height: 250px;">
+    <img src="color_enhanced.jpg" alt="a color enhanced image" style="max-height: 250px;">
+    <figcaption>Color enhancement by converting the image into HSV format and taking square root of saturation. The overall color brightness is enhanced and the most successful part on this image enhancement is the color of the sky in the upper-left corner and the color of its reflection on the windows.</figcaption>
+  </figure>
+  <figure>
+    <h4>2.3 Color Shift</h4>
+    <img src="yellowish.png" alt="a yellowish image" style="width:301px;height:210px">
+    <img src="less_yellow.jpg" alt="a yellowish image" style="width:301px;height:210px">
+    <img src="more_red.jpg" alt="a yellowish image" style="width:301px;height:210px">
+    <figcaption>Color shift by converting the image into Lab format and adjusting the a and b values since a is the yellow-blue axis and b is the red-green axis.</figcaption>
+  </figure>
+</body>
+</html>

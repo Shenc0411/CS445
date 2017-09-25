@@ -1,0 +1,18 @@
+1. Core Assignment(100 or 105?):
+
+45 points for implementation to create hybrid images from two aligned input images.
+- 45 points. 
+
+25 points for illustration and additional results: 15 points for FFT images; 10 points for including at least two examples beyond the first (including at least one failure).
+- 25 points. I have written lots of comments to explain my codes. I have also put one example for successful hybrid and two examples for failures on my webpage.
+
+10 points for quality of results (e.g., 0=poor 5=average 10=great 15=amazing)
+- 10 or 15 points. I think the eyes of the panda image and the owl image match perfectly and the result in the pyramids are satisfactory.
+
+20 points for two image enhancement tasks (10 pts each), including explanation and display of results.
+- 20 points. There are also comments in the image enhancement codes to explain the methods I used.
+
+2. Bells & Whistles
+- 25 points.
+    1. I did the gaussian and lapacian pyramids.
+    2. I did the third image enhancement task.

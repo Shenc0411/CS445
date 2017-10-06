@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CS445 Project 2</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/one-page-wonder.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Fall 2017 CS445 Computational Photography Project 2</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <header class="masthead">
+      <div class="overlay">
+        <div class="container">
+          <h1 class="display-1 text-white">Image Quilting</h1>
+          <h2 class="display-6 text-white">By Cong Shen (cshen19)</h2>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="images/rock.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">SampleTexture</h2>
+              <p>This is a random rock texture.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="images/random_patch.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="p-5">
+              <h2 class="display-5">Random Patch</h2>
+              <p>Texture synthesis by picking random patches from the sample texture. We can easily see the seam between patches.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid" src="images/cost_image.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">Minimizing Cost</h2>
+              <p>Instead of randomly select patches from the sample texture, we can improve the quilting quality by selecting overlaping patches and find patches from the sample texture with lowest SSD within a tolerence. And then we can randomly select one patch from them and add it into the output image. Here is an example for the SSD cost image.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="images/overlap_patch.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">Overlap Patch</h2>
+              <p>However, seams between patches are still noticible even when we are selecting patches with minimum SSD cost.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid" src="images/overlap_min_cut.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">Seam Finding</h2>
+              <p>After randomly selected a patch with low SSD, instead of directly overlap it onto the output image, we can find a seam cut with minimum cost in the overlapping part. And cut the selected patch with the minimum-cost cut and then overlap it onto the output image. Here is an example for the vertical minimum-overlap-cost mask.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="images/overlap_with_seam_finding.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">Min-Cut Overlap</h2>
+              <p>Now the patches in the output image are almost seamless.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-2">
+            <div class="p-5">
+              <img class="img-fluid rounded-circle" src="images/mona_lisa.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">Texture Transfer</h2>
+              <p>Using the idea of texture synthesis, we can also tranfer texture onto another image. In that case, the original intensity of the image is preserved and the texture of that image is replace by the new texture. But instead of only calculating the cost image with the SSD of overlaping area, we also need to take the cost of transferring texture into account. We can calculate the SSD of target patch and the sample texture. Here is the "Mona Lisa painted by Vincent van Gogh".</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <h2 class="display-5">More Results...</h2>
+              <p>Here is some other results from this project.</p>
+            </div>
+          </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/map_texture.png" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/map_synthesis.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/text_texture.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/text_synthesis.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/bricks_texture.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/bricks_synthesis.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/street_view_texture.jpeg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/street_view_synthesis.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/ramen_texture.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/ramen_synthesis.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/abstract_art_texture.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/another_mona_lisa.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    
+     <section>
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/ramen_texture.jpg" alt="">
+            </div>
+          </div>
+          <div class="col-md-6 order-1">
+            <div class="p-5">
+              <img class="img-fluid" src="images/ramen_lisa.png" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Cong Shen 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/popper/popper.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+  </body>
+
+</html>

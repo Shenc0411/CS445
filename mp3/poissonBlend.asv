@@ -1,7 +1,6 @@
 function [im_out] = poissonBlend(im_source, im_mask, im_background)
     [height, width, num_channels] = size(im_background);
     im_out = ~im_mask .* im_background;
-    
     for channel = 1 : num_channels
         e = 0;
         A = sparse(height * width * 8, height * width);
@@ -59,69 +58,12 @@ function [im_out] = poissonBlend(im_source, im_mask, im_background)
                             b(e) = im_source(y, x, channel) - im_source(y, x - 1, channel) + im_background(y, x - 1, channel);
                         end
                     end
-                    if(x > 1 && y > 1)
-                        if(im_mask(y - 1, x - 1) ~= 0)
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            A(e, im2var(y - 1, x - 1)) = -1;
-                            b(e) = im_source(y, x, channel) - im_source(y - 1, x - 1, channel);
-                        else
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            b(e) = im_source(y, x, channel) - im_source(y - 1, x - 1, channel) + im_background(y - 1, x - 1, channel);
-                        end
-                    end
-                    if(x > 1 && y < height)
-                        if(im_mask(y + 1, x - 1) ~= 0)
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            A(e, im2var(y + 1, x - 1)) = -1;
-                            b(e) = im_source(y, x, channel) - im_source(y + 1, x - 1, channel);
-                        else
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            b(e) = im_source(y, x, channel) - im_source(y + 1, x - 1, channel) + im_background(y + 1, x - 1, channel);
-                        end
-                    end
-                    if(x < width && y > 1)
-                        if(im_mask(y - 1, x + 1) ~= 0)
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            A(e, im2var(y - 1, x + 1)) = -1;
-                            b(e) = im_source(y, x, channel) - im_source(y - 1, x + 1, channel);
-                        else
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            b(e) = im_source(y, x, channel) - im_source(y - 1, x + 1, channel) + im_background(y - 1, x + 1, channel);
-                        end
-                    end
-                    if(x < width && y < height)
-                        if(im_mask(y + 1, x + 1) ~= 0)
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            A(e, im2var(y + 1, x + 1)) = -1;
-                            b(e) = im_source(y, x, channel) - im_source(y + 1, x + 1, channel);
-                        else
-                            e = e + 1;
-                            A(e, im2var(y, x)) = 1;
-                            b(e) = im_source(y, x, channel) - im_source(y + 1, x + 1, channel) + im_background(y + 1, x + 1, channel);
-                        end
-                    end
                 end
             end
         end
-        
         A = A(1 : e, :);
         b = b(1 : e);
         v = A \ b;
-        
-        for x = 1 : width
-            for y = 1 : height
-                if im_mask(y, x) ~= 0
-                    im_out(y, x, channel) = v(im2var(y, x));
-                end
-            end
-        end
-        
+        for 
     end
 end

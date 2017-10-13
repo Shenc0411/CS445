@@ -1,7 +1,7 @@
 % starter script for project 3
 DO_TOY = true;
-DO_BLEND = true;
-DO_MIXED  = false;
+DO_BLEND = false;
+DO_MIXED  = true;
 DO_COLOR2GRAY = false;
 
 if DO_TOY 
@@ -28,7 +28,13 @@ end
 
 if DO_MIXED
     % read images
-    %...
+    im_background = imresize(im2double(imread('./samples/im2.jpg')), 0.25, 'bilinear');
+    im_object = imresize(im2double(imread('./samples/penguin-chick.jpeg')), 0.25, 'bilinear');
+
+    % get source region mask from the user
+    objmask = getMask(im_object);
+    % align im_s and mask_s with im_background
+    [im_s, mask_s] = alignSource(im_object, objmask, im_background);
     
     % blend
     im_blend = mixedBlend(im_s, mask_s, im_background);

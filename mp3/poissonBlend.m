@@ -126,7 +126,11 @@ function [im_out] = poissonBlend(im_source, im_mask, im_background)
                             b(e) = im_source(y, x, channel) - im_source(y - 1, x - 1, channel);
                         else
                             e = e + 1;
-                            A(e, im2var(y, x)) = 1;
+                            %A(e, im2var(y, x)) = 1;
+                            c = c + 1;
+                            A_j(c) = e;
+                            A_i(c) = im2var(y, x);
+                            A_v(c) = 1;
                             b(e) = im_source(y, x, channel) - im_source(y - 1, x - 1, channel) + im_background(y - 1, x - 1, channel);
                         end
                     end
@@ -190,7 +194,7 @@ function [im_out] = poissonBlend(im_source, im_mask, im_background)
                             c = c + 1;
                             A_j(c) = e;
                             A_i(c) = im2var(y + 1, x + 1);
-                            A_v(c) = 1;
+                            A_v(c) = -1;
                             b(e) = im_source(y, x, channel) - im_source(y + 1, x + 1, channel);
                         else
                             e = e + 1;

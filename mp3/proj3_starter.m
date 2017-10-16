@@ -31,7 +31,7 @@ if DO_MIXED
     im_background = imresize(im2double(imread('./samples/im2.jpg')), 0.25, 'bilinear');
     im_object = imresize(im2double(imread('./samples/penguin-chick.jpeg')), 0.25, 'bilinear');
 
-    % get source region mask from the user
+    % get source region mask from the userd
     objmask = getMask(im_object);
     % align im_s and mask_s with im_background
     [im_s, mask_s] = alignSource(im_object, objmask, im_background);

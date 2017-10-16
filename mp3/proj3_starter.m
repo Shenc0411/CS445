@@ -12,8 +12,8 @@ if DO_TOY
 end
 
 % do a small one first, while debugging
-im_background = imresize(im2double(imread('./samples/mona-lisa.jpg')), 0.25, 'bilinear');
-im_object = imresize(im2double(imread('./samples/trump8.jpg')), 0.05, 'bilinear');
+im_background = imresize(im2double(imread('./samples/landscape.jpg')), 1, 'bilinear');
+im_object = imresize(im2double(imread('./samples/rainbow.jpg')), 1, 'bilinear');
 
 % get source region mask from the userd
 objmask = getMask(im_object);

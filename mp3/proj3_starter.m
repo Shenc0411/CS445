@@ -1,8 +1,8 @@
 % starter script for project 3
 DO_TOY = true;
-DO_BLEND = false;
+DO_BLEND = true;
 DO_MIXED  = true;
-DO_COLOR2GRAY = false;
+DO_COLOR2GRAY = true;
 
 if DO_TOY 
     toyim = im2double(imread('./samples/toy_problem.png')); 
@@ -43,7 +43,7 @@ end
 
 if DO_COLOR2GRAY
     % also feel welcome to try this on some natural images and compare to rgb2gray
-    im_rgb = im2double(imread('./samples/colorBlindTest35.png'));
+    im_rgb = im2double(imread('./samples/colorBlind4.png'));
     im_gr = color2gray(im_rgb);
     figure(4), hold off, imagesc(im_gr), axis image, colormap gray
 end

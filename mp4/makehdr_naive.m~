@@ -1,0 +1,21 @@
+function hdr = makehdr_naive(ldrs, exposures)
+    % ldrs is an m x n x 3 x k matrix which can be created with ldrs = cat(4, ldr1, ldr2, ...);
+    % exposures is a vector of exposure times (in seconds) corresponding to ldrs
+    [exposures,sortexp] = sort(reshape(exposures,1,1,1,[]));
+    ldrs = ldrs(:,:,:,sortexp); %Sort exposures from dark to light
+    [height, weight, channels, length] = size(ldrs);
+    hdr = zeros(height, weight, channels);
+    %Create naive HDR here
+    for i = 1 : length
+        norm_ldr = ldrs(:, :, :, i) ./ exposures(i);
+        
+        for j = 1 : channels
+            norm_ldr(:, :, j) = norm_ldr(:, :, j) - min(min(norm_ldr(:, :, j)));
+            norm_ldr(:, :, j) = norm_ldr(:, :, j) ./ max(max(norm_ldr(:, :, j)));
+        end
+        
+        figure(i), imshow(norm_ldr);
+        hdr = hdr + norm_ldr;
+    end
+    hdr = hdr ./ length;
+end

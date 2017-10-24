@@ -9,11 +9,12 @@ if DO_TOY
     % im_out should be approximately the same as toyim
     im_out = toy_reconstruct(toyim);
     disp(['Error: ' num2str(sqrt(sum((toyim(:)-im_out(:)).^2)))])
+    figure(2), imshow(im_out);
 end
 
 % do a small one first, while debugging
-im_background = imresize(im2double(imread('./samples/mona-lisa.jpg')), 0.25, 'bilinear');
-im_object = imresize(im2double(imread('./samples/trump8.jpg')), 0.05, 'bilinear');
+im_background = imresize(im2double(imread('./samples/im2.JPG')), 0.25, 'bilinear');
+im_object = imresize(im2double(imread('./samples/penguin-chick.jpeg')), 0.25, 'bilinear');
 
 % get source region mask from the userd
 objmask = getMask(im_object);

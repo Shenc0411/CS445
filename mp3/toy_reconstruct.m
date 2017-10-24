@@ -1,5 +1,6 @@
 function [im_out] = toy_reconstruct(im)
     [height, width, num_channels] = size(im);
+    im_out = size(im);
     im2var = zeros(height, width);
     im2var(1 : height * width) = 1 : height * width;
     e = 0;
@@ -34,5 +35,11 @@ function [im_out] = toy_reconstruct(im)
     A = A(1 : e, :);
     b = b(1 : e);
     
-    im_out = A \ b;
+    v = A \ b;
+    
+    for x = 1 : width
+        for y = 1 : height
+            im_out(y, x) = v(im2var(y, x));
+        end
+    end
 end

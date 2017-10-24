@@ -1,0 +1,36 @@
+function hdr = makehdr_naive_wuo(ldrs, exposures)
+    % ldrs is an m x n x 3 x k matrix which can be created with ldrs = cat(4, ldr1, ldr2, ...);
+    % exposures is a vector of exposure times (in seconds) corresponding to ldrs
+    [exposures,sortexp] = sort(reshape(exposures,1,1,1,[]));
+    ldrs = ldrs(:,:,:,sortexp); %Sort exposures from dark to light
+    [height, width, channels, length] = size(ldrs);
+    hdr = zeros(height, width, channels);
+    
+    w = @(z) double(128-abs(z-128));
+    
+    grayscale_ldrs = zeros(height, width, length);
+    for i = 1 : length
+        grayscale_ldrs(:, :, i) = rgb2gray(ldrs(:, :, :, i));
+    end
+    
+    over_exposed_threshold = 0.98;
+    under_exposed_threshold = 0.02;
+    medium_expose_index = ceil(length / 2)
+    
+    %Create naive HDR here
+    for x = 1 : width
+        for y = 1 : height
+            for i = 1 : length
+                if grayscale_ldrs(y, x, i) < under_exposed_threshold || grayscale_ldrs(y, x, i) > over_exposed_threshold
+                    ldrs(y, x, :, i) = ldrs(y, x, :, medium_expose_index);
+                else 
+                    hdr(y, x, :) = hdr(y, x, :) + ldrs(y, x, :, i);
+                end
+            end
+        end
+    end
+    
+    for i = 1 : leng
+    
+    hdr = hdr ./ length;
+end

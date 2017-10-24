@@ -1,0 +1,26 @@
+%//
+ldr1 = im2double(imread('proj4_materials/0024.jpg'));
+ldr2 = im2double(imread('proj4_materials/0060.jpg'));
+ldr3 = im2double(imread('proj4_materials/0120.jpg'));
+ldr4 = im2double(imread('proj4_materials/0205.jpg'));
+ldr5 = im2double(imread('proj4_materials/0553.jpg'));
+ldr1 = imresize(ldr,)
+
+%Naive LDR merging
+info_ldr1 = imfinfo('proj4_materials/0024.jpg');
+info_ldr1_dc = info_ldr1.DigitalCamera;
+info_ldr2 = imfinfo('proj4_materials/0060.jpg');
+info_ldr2_dc = info_ldr2.DigitalCamera;
+info_ldr3 = imfinfo('proj4_materials/0120.jpg');
+info_ldr3_dc = info_ldr3.DigitalCamera;
+info_ldr4 = imfinfo('proj4_materials/0205.jpg');
+info_ldr4_dc = info_ldr4.DigitalCamera;
+info_ldr5 = imfinfo('proj4_materials/0553.jpg');
+info_ldr5_dc = info_ldr5.DigitalCamera;
+
+ldrs = cat(4, ldr1, ldr2, ldr3, ldr4, ldr5);
+exp = [info_ldr1_dc.ExposureTime, info_ldr2_dc.ExposureTime, info_ldr3_dc.ExposureTime, info_ldr4_dc.ExposureTime, info_ldr5_dc.ExposureTime];
+
+hdr_naive = makehdr_naive(ldrs, exp);
+imshow(hdr_naive);
+

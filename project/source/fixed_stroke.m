@@ -17,7 +17,7 @@ X = X(:);
 Y = Y(:);
 to_render = randperm(length(X));
 
-for i = 1 : length(to_render) / 2
+for i = 1 : length(to_render)
     disp(i / length(to_render) * 100);
     
     cx = X(to_render(i));

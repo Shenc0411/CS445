@@ -32,4 +32,4 @@ for i = 1 : length(to_render)
 end
 
 figure(3), imshow(im_out);
-imwrite(im_out, 'fixed_orientation.jpg');
+imwrite(im_out, 'random_perturbation.jpg');

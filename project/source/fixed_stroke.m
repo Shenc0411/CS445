@@ -6,8 +6,6 @@ l = 10;
 sigma = 0.5;
 
 im = im2double(imread('images/altgeld_small.jpg'));
-sample_mask = zeros(size(im));
-sample_mask = sample_mask(:, :, 1);
         
 [height, width, ~] = size(im);
 im_out = zeros(size(im));

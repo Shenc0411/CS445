@@ -1,7 +1,7 @@
 close all;
 clear;
 
-im_name = 'Mona-Lisa';
+im_name = 'altgeld_small';
 
 theta_base = pi / 4;
 l_base = 4;

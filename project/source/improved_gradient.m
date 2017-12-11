@@ -1,7 +1,7 @@
 close all;
 clear;
 
-im_name = 'apple_small';
+im_name = 'landscape';
 
 theta_base = pi / 4;
 l_base = 4;
@@ -9,15 +9,19 @@ sigma_base = 0.5;
 edge_threshold = 0.2;
 
 im = im2double(imread(strcat('images/', im_name, '.jpg')));
-      
+
 im_grayscale = rgb2gray(im);
 im_grayscale = imgaussfilt(im_grayscale, 2);
 im_edge = edge(im_grayscale, 'canny');
 [Gmag,Gdir] = imgradient(im_grayscale);
 Gdir = imgaussfilt(Gdir, 2);
+im = imgaussfilt(im, 0.8);
 
+[D, Idx] = bwdist(Gmag > edge_threshold);
+ 
+figure(), imshow(im);
 figure(), imshow(Gmag);
-figure(), imshow(Gdir);
+figure(), imagesc(Gdir);
 
 [height, width, ~] = size(im);
 im_out = zeros(size(im));
@@ -38,15 +42,21 @@ for i = 1 : length(to_render)
     
     sigma = sigma_base + randi([-50 50]) / 1000;
     
-    if(Gdir(cy, cx) < 0)
-        theta = (Gdir(cy, cx) + 180) / 360 * 2 * pi;
+    if(Gmag(cy, cx) < edge_threshold)
+        theta = Gdir(mod(Idx(cy, cx), height) + 1, min(floor((Idx(cy, cx) - 1) / height) + 1, width));
     else
-        theta = Gdir(cy, cx) / 360 * 2 * pi;
+        theta = Gdir(cy, cx);
+    end
+    
+    if(theta < 0)
+        theta = (theta + 180) / 360 * 2 * pi;
+    else
+        theta = theta / 360 * 2 * pi;
     end
     
     theta = theta - pi / 2;
     
-    if(theta > - pi / 2 + 0.1 || theta < pi / 2 - 0.1)
+    if(theta > - pi / 2 + 0.1 && theta < pi / 2 - 0.1)
         xrange = abs(l / 2 * cos(theta));
 
         left = 0;
@@ -77,7 +87,7 @@ for i = 1 : length(to_render)
 
         l = abs(round((right + left) / cos(theta)));
     else
-        gamma = theta - pi / 2;
+        gamma = pi / 2 - theta;
         yrange = abs(l / 2 * cos(gamma));
         up = 0;
         while up < yrange
@@ -108,8 +118,10 @@ for i = 1 : length(to_render)
         l = (up + down) * cos(gamma);
     end
     
+    theta = theta + randi([-15 15]) / 360 * 2 * pi;
+    
     im_out = draw_stroke(im_out, color, cx, cy, sigma, l, theta);
 end
 
 figure(), imshow(im_out);
-imwrite(im_out, strcat(im_name , '_gradient_stroke.jpg'));
+imwrite(im_out, strcat(im_name , '_improved_gradient_random_theta.jpg'));

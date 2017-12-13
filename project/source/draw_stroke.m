@@ -11,7 +11,7 @@ function im_out = draw_stroke(im, color, cx, cy, sigma, length, theta)
 im_out = im;
 
 mask = lineMask(size(im), [cy + sin(theta) * length / 2 cx - cos(theta) * length /2], [cy - sin(theta) * length / 2 cx + cos(theta) * length /2], sigma);
-mask(mask < 0.01) = 0;
+mask(mask < 0.05) = 0;
 mask(mask ~= 0) = 1;
 
 stroke(:, :, 1) = mask .* color(1);

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CS445 Final Project: Impressionist Effects by Cong Shen</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/full-slider.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">CS445 Final Project: Impressionist Effects by Cong Shen(cshen19)</a>
+      </div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="mailto:cshen19@illinois.edu">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <header>
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox">
+          <!-- Slide One - Set the background image for this slide in the line below -->
+          <div class="carousel-item active" style="background-image: url('images/result/shanghai_night_large.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Shanghai Night View</h3>
+            </div>
+          </div>
+          <!-- Slide Two - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('images/result/westminster2.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Palace of Westminster</h3>
+            </div>
+          </div>
+          <!-- Slide Three - Set the background image for this slide in the line below -->
+          <div class="carousel-item" style="background-image: url('images/result/castle_improved.jpg')">
+            <div class="carousel-caption d-none d-md-block">
+              <h3>Medieval Castle</h3>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Page Content -->
+    <section class="py-5">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>Brief Introduction</h1>
+            <h6>The main goal of this project is to apply non-photorealitic rendering techniques onto existing 2D images in order to achieve impressionist effects.</h6>
+            <h4>So What is <b>Impressionism</b>?</h4>
+            <p>By definition on Wikipedia, impressionism is a 19th-century art movement characterized by <b>relatively small, thin, yet visible brush strokes</b>, open composition, emphasis on accurate depiction of light in its changing qualities (often accentuating the effects of the passage of time), ordinary subject matter, inclusion of movement as a crucial element of human perception and experience, and unusual visual angles.</p>
+            <p>You may not be fimiliar with the definition of impressionism but you must be pretty familiar with names of famous impressionists and their masterpieces.</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/sample/van-gogh-starry-night.jpg">
+                <p>Starry Night by Vincent Van Gogh</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/sample/1920px-Monet_-_Impression,_Sunrise.jpg">
+                <p>Impression, Sunrise by Claude Monet</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 mx-auto">
+                <img class="img-fluid" src="images/sample/San-Giorgio-Maggiore-At-Dusk.jpg">
+                <p>San Giorgio Maggiore at Dusk by Claude Monet</p>
+              </div>
+            </div>
+            <p>This project is mainly inspired by the paper <a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.87.6457&rep=rep1&type=pdf">"Processing Images and Video for An Impressionist Effect"</a> from Peter Litwinowicz. </p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>First Attempt: Fixed Stokes</h1>
+            <p>One notable techique used by impressionist is using small, thin, yet visible brush strokes. So in order to achieve that effect, I tried to draw short strokes with preset lengths, widths and orientations using colors at the center of strokes.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <p>However, there is another problem with drawing strokes. I tried to draw two triangles to form a stroke, but the <code>poly2mask</code> function in Matlab is not antialiased so that it will create jagged edges at its margin.</p>
+                <p>Using <a href="https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm">Xiaolin Wu's line algorithm</a> can significantly smooth the edge of strokes.</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                 <img class="img-fluid" src="images/illustration/antialias.jpeg">
+              </div>
+            </div>
+            <p>Here is the result:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/altgeld_small.jpg">
+                <p>A Photo of Altgeld Hall</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/fixed_stroke.jpg">
+                <p>Generated Image Using Fixed Strokes</p>
+              </div>
+            </div>
+            <p>Note that in this approach all stokes are generated in random order to help create a hand-touched look. However, the whole image is still way too unnatural compared to the aboving impressionist masterpieces. Impressionist artists are not robots so they probably cannot always paint stokes with the same length, width and orientation.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>Add Some Randomness!</h1>
+            <p>You will notice that stroke at the sky region in Impression, Sunrise by Monet has different colors and orientations. As I mentioned before, impressionist artists are trying to paint visible strokes. Therefore, since we are using the center pixel color at each strokes, strokes at a area with unnoticeable color difference will not be distinct enough from each other. A solution proposed by Peter Litwinowicz is to add some random perturbation to each individual stroke's parameters(i.e. length, width, orientation and color).</p>
+            <p>Here is the comparision of results:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/fixed_stroke.jpg">
+                <p>Generated Image Using Fixed Stokes</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/random_perturbation.jpg">
+                <p>Generated Image Using Random Perturbation</p>
+              </div>
+            </div>
+            <p>The generated image looks way better than before. But we are still some distance away from impressionist effects.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>Let There Be Edges</h1>
+            <p>Now the strokes in our generated image looks somewhat similar to impresionist paintings. However, the image still looks blurred. Well, this is because the previous approach does not pay any attention to edges. Hence, strokes are clipped when it reaches an edge.</p>
+            <p>Here is result of edge detection:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/altgeld_small.jpg">
+                <p>Original Photo</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/altgeld_small_edge.jpg">
+                <p>Detected Edges Using Canny Edge Detector</p>
+              </div>
+            </div>
+            <p>Here is the comparision of results:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/random_perturbation.jpg">
+                <p>Without Edge Clipping</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/edge_clipping.jpg">
+                <p>With Edge Clipping</p>
+              </div>
+            </div>
+            <p>Note that the edge detector uses a low-pass(Gaussian filtered) image so that it can be less sensitive to some minor details.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>What About Gradients?</h1>
+            <p>The generated image still does not seem to be enough impressionist-ish. In previous projects, professor Hoiem mentioned that gradient domain processing can also be used to create non-photorealistic rendering effects. So it must have something to do with gradients.</p>
+            <p>Lets take a look at the Starry Night Over the Rhône by Van Gogh:</p>
+            <img class="img-fluid" src="images/sample/Starry_Night_Over_the_Rhone1.jpg">
+            <p></p>
+            <p>You may notice that the strokes are not fixed to around 45 degress to the x axis. So how are we going to determine the orientation of each stroke? The answer is "gradient".</p>
+            <p>In NPR(non-photorealistic rendering), we are trying to preserve edges and simultaneously minimize the gradient within areas without edges. Hence, we can use the gradient normal for the orientation of strokes since gradient direction represents the the direction which intensity changes most frequently.</p>
+            <p>Here is the comparision of results:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/edge_clipping.jpg">
+                <p>Without Using Gradient Normal</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/altgeld_small_gradient_stroke.jpg">
+                <p>Using Gradient Normal</p>
+              </div>
+            </div>
+            <p>Here is another comparision of results:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_edge_clipping.jpg">
+                <p>Without Using Gradient Normal</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_gradient_stroke.jpg">
+                <p>Using Gradient Normal</p>
+              </div>
+            </div>
+            <p>Using gradient normals as orientation of strokes also helps preserving edges.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>More About Gradients</h1>
+            <p>In the preious results, the stroke orientation in the background looks kind of unnatural again. This problem is also related to image gradients.</p>
+            <p>Lets take the apple image as example:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/apple_small.jpg">
+                <p>Without Using Gradient Normal</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_gradient_dir.jpg">
+                <p>Using Gradient Normal</p>
+              </div>
+            </div>
+            <p>You can see that the gradient directions in the background are almost all zero or near zero(Well that's because it has a white background). In that case, we cannot simply rely on them.  Through observation, impressionist artists tend to use the gradient directions around edges for strokes far away from edges. Moreover, little difference in <code>Gx</code> and <code>Gy</code> can cause huge difference in angles.</p>
+            <p>Peter Litwinowicz also proposed a solution to this problem in his paper:</p>
+            <blockquote class="blockquote">
+              <p class="mb-0">
+                To accomplish this, gradient values are “thrown out” at pixel
+                locations where the Magnitude((Gx,Gy)) is near zero. In this
+                implementation, this is approximated by the test: |Gx| &#60 3.0 and
+                |Gy| &#60 3.0, which was empirically found to be useful. The
+                gradient at pixels with near zero gradient magnitude are then
+                replaced by interpolating surrounding "good" gradients
+              </p>
+              <footer class="blockquote-footer">Peter Litwinowicz <cite title="Source Title">"Processing Images and Video for An Impressionist Effect"</cite></footer>
+            </blockquote>
+            <p>At first I used a brute force seraching algorithm for finding the nearest non-zero neighbor for near-zero pixels but the running time is terrible when the resolution of input images went up. So I am using a kd-tree instead for better performence.</p>
+            <p>Here is the result of replacing "bad" gradients:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_gradient_dir.jpg">
+                <p>Original Gradient Directions</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_modified_gradient_dir.jpg">
+                <p>After Replacing "Bad" Gradient</p>
+              </div>
+            </div>
+            <p>Here is the comparision of results:</p>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/illustration/apple_small_gradient_stroke.jpg">
+                <p>Without Using Gradient Normal</p>
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/apple_small.jpg">
+                <p>Using Gradient Normal</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>More Results</h1>
+            <h5>Altgeld Hall(Higher Resolution Version)</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/altgeld_large.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/altgeld_large.jpg">
+              </div>
+            </div>
+            <p></p>
+            <h5>Palace of Westminster</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/westminster.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/westminster.jpg">
+              </div>
+            </div>
+            <p></p>
+            <h5>Some Landscape</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/landscape.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/landscape.jpg">
+              </div>
+            </div>
+            <p></p>
+            <h5>Mona-Lisa</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/Mona-Lisa.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/Mona-Lisa_improved_gradient.jpg">
+              </div>
+            </div>
+            <p></p>
+            <h5>Sunset</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/sunset_large.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/sunset_large.jpg">
+              </div>
+            </div>
+            <p></p>
+            <h5>Siebel Center</h5>
+            <div class="row">
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/source/siebel.jpg">
+              </div>
+              <div class="col-lg-6 mx-auto">
+                <img class="img-fluid" src="images/result/siebel.jpg">
+              </div>
+            </div>
+            <p></p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <h1>Further Discussion</h1>
+            <p>There still remains a lot to be improved for this project:</p>
+            <ul>
+              <li>
+                <h5>Code Speed</h5>
+                <p>It almost took my computer two hours to generate the Shanghai Night View image(1500 * 993). The Matlab profiler says the antialiasing code account for the majority of running time. I think optimizing that part of code should result in a great improvement of overall running time.</p>
+              </li>
+              <li>
+                <h5>Brush Stroke Texture</h5>
+                <p>If you take a closer look at Van Gogh or Monet's painting, you will find that the brush stroke textures of each stroke are varying from each other and the color within one stroke is also varying. This is probably a combinational effect of gravity, the strength when painting the stroke or other complicated factors. I believe it will be difficult to completely replicate impressionist stroke textures but it certainly should be better than using uniform color line-shaped stokes.</p>
+              </li>
+              <li>
+                <h5>Using Bilinear Interpolation for Stroke Colors and Gradient Directions.</h5>
+                <p>I used the values from center pixels of each stroke and achieved reasonably good quality. However, Peter Litwinowicz suggested to use bilinear interpolation of colors and gradient directions. I think this can slightly improve the color and orientation accuracy for strokes. For example, if there is a pixel with very distinct color in your input image and, with extremely bad luck, the god of randomness decides to use its color and gradient normal at that position in your output image, it may result in a very werid-looking and unnatural stroke.</p>
+              </li>
+            </ul>
+            
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; Cong Shen 2017</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>

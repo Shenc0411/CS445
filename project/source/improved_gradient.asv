@@ -1,7 +1,7 @@
 close all;
 clear;
 
-im_name = 'westminster3';
+im_name = 'aleg';
 
 theta_base = pi / 4;
 l_base = 8;
@@ -69,6 +69,9 @@ for i = 1 : length(to_render)
             if(Gmag(y, x) > edge_threshold || Gmag(y, x + 1) > edge_threshold || Gmag(y - 1, x + 1) > edge_threshold || Gmag(y + 1, x + 1) > edge_threshold || Gmag(y - 1, x) > edge_threshold || Gmag(y + 1, x) > edge_threshold || Gmag(y, x - 1) > edge_threshold || Gmag(y + 1, x - 1) > edge_threshold || Gmag(y - 1, x - 1) > edge_threshold)
                 break;
             end
+            if(abs(Gdir(y, x) - theta + pi / 2) > 20)
+                break;
+            end
             left = left + 1;
         end
 
@@ -99,6 +102,9 @@ for i = 1 : length(to_render)
             if(Gmag(y, x) > edge_threshold || Gmag(y, x + 1) > edge_threshold || Gmag(y - 1, x + 1) > edge_threshold || Gmag(y + 1, x + 1) > edge_threshold || Gmag(y - 1, x) > edge_threshold || Gmag(y + 1, x) > edge_threshold || Gmag(y, x - 1) > edge_threshold || Gmag(y + 1, x - 1) > edge_threshold || Gmag(y - 1, x - 1) > edge_threshold)
                 break;
             end
+            if(abs(Gdir(y, x) - theta + pi / 2) > 20)
+                break;
+            end
             up = up + 1;
         end
         
@@ -124,4 +130,4 @@ for i = 1 : length(to_render)
 end
 
 figure(), imshow(im_out);
-imwrite(im_out, strcat(im_name , '_improved_gradient_test.jpg'));
+imwrite(im_out, strcat(im_name , '_improved_gradient_random_theta.jpg'));
